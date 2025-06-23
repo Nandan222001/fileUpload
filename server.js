@@ -1,13 +1,17 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
 const fileUpload = require('express-fileupload');
-app.use(fileUpload());
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: path.join(__dirname, 'tmp'), 
+}));
 
 const cloudinary = require('./config/cloudinary');
 cloudinary.cloudinaryConnect();
