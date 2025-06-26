@@ -8,7 +8,6 @@ const isFileTypeSupported = (fileType, supportedTypes) => {
 const uploadFileToCloudinary = async(file,folder,quality) => {
     const options= {
         folder : folder,
-        resource_type : "video",
         public_id: file.name,
         use_filename: true,
         unique_filename: false
@@ -18,6 +17,7 @@ const uploadFileToCloudinary = async(file,folder,quality) => {
         options.quality = quality;
     }
     try {
+        options.resource_type = "video";
         const result = await cloudinary.uploader.upload(file.tempFilePath, options);
         console.log("Result :- ",result);
         return result;
